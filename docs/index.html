@@ -49,6 +49,14 @@
             box-shadow: 0 0 10px 2px;
         }
 
+        .additional-container{
+            width: 800px;
+            max-width: 80%;
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px 2px;
+        }
         .btn-grid {
             display: grid;
             grid-template-columns: repeat(2, auto);
@@ -170,7 +178,8 @@
 
             function additionalText() {
                 const text = document.createElement('container')
-                text.body = "This is the additional text"
+                text.innerText = "This is the additional text"
+                answerButtonsElement.appendChild(text)
             }
 
             function setStatusClass(element, correct) {
@@ -213,6 +222,9 @@
 </head>
 
 <body>
+    <!--<div class="container">
+
+    </div>-->
     <div class="container">
         <div id="question-container" class="hide">
             <div id="question">Question</div>
