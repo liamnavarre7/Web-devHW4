@@ -140,6 +140,7 @@
                         button.dataset.correct = answer.correct
                     }
                     button.addEventListener('click', selectAnswer)
+                    button.addEventListener('click', additionalText) //This is where I want to add the text page 
                     answerButtonsElement.appendChild(button)
                 })
             }
@@ -165,6 +166,12 @@
                     startButton.innerText = 'Restart'
                     startButton.classList.remove('hide')
                 }
+            }
+
+            function additionalText() {
+                const text = document.createElement('p')
+                text.innerText = "This is the additional text"
+                answerButtonsElement.appendChild(text)
             }
 
             function setStatusClass(element, correct) {
