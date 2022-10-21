@@ -52,8 +52,12 @@
         .additional-container{
             width: 800px;
             max-width: 80%;
+            height: 10vh;
             background-color: white;
             border-radius: 5px;
+            text-align: center;
+            position: fixed;
+            top: 180px;
             padding: 10px;
             box-shadow: 0 0 10px 2px;
         }
@@ -131,6 +135,7 @@
                 shuffledQuestions = questions.sort(() => Math.random() - .5)
                 currentQuestionIndex = 0
                 questionContainerElement.classList.remove('hide')
+
                 setNextQuestion()
             }
 
@@ -149,8 +154,8 @@
                         button.dataset.correct = answer.correct
                     }
                     button.addEventListener('click', selectAnswer)
-                    button.addEventListener('click', additionalText) //This is where I want to add the text page 
                     answerButtonsElement.appendChild(button)
+                    button.addEventListener('click', additionalText) //This is where I want to add the text page 
                 })
             }
 
@@ -178,9 +183,8 @@
             }
 
             function additionalText() {
-                const text = document.createElement('container')
-                text.innerText = "This is the additional text"
-                infoContainer.appendChild(text)
+                var text = document.createElement('container')
+                infoContainer.innerText = questions[currentQuestionIndex].additionalInfo
             }
 
             function setStatusClass(element, correct) {
@@ -203,7 +207,8 @@
                     answers: [
                         { text: 'Correct Answer', correct: true },
                         { text: 'Incorrect Answer', correct: false },
-                    ]
+                    ],
+                    additionalInfo: '10000000000000000'
                 },
                 {
                     question: 'This is another test question',
@@ -214,7 +219,8 @@
                         { text: 'Incorrect Answer', correct: false },
                         { text: 'Incorrect Answer', correct: false },
                         { text: 'Incorrect Answer', correct: false },
-                    ]
+                    ],
+                    additionalInfo: '11111111111111111111111111'
                 },
                 
             ]
@@ -223,9 +229,10 @@
 </head>
 
 <body>
-    <div class="additional-container" class="hide">
+    <div id="additional-container" class="additional-container">
 
     </div>
+   
     <div class="container">
         <div id="question-container" class="hide">
             <div id="question">Question</div>
