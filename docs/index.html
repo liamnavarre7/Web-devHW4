@@ -110,6 +110,7 @@
         window.addEventListener("DOMContentLoaded", domLoaded);
 
         function domLoaded() {
+            const infoContainer = document.getElementById("additional-container");
             const startButton = document.getElementById('start-btn')
             const nextButton = document.getElementById('next-btn')
             const questionContainerElement = document.getElementById('question-container')
@@ -179,7 +180,7 @@
             function additionalText() {
                 const text = document.createElement('container')
                 text.innerText = "This is the additional text"
-                body.appendChild(text)
+                infoContainer.appendChild(text)
             }
 
             function setStatusClass(element, correct) {
@@ -222,9 +223,9 @@
 </head>
 
 <body>
-    <!--<div class="container">
+    <div class="additional-container" class="hide">
 
-    </div>-->
+    </div>
     <div class="container">
         <div id="question-container" class="hide">
             <div id="question">Question</div>
