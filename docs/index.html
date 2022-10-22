@@ -148,12 +148,15 @@
             })
             textboxContainer.addEventListener('click', () => {
                 var checkbox = document.getElementById("check");
-                if(checkbox.checked == true){
-                    console.log("checked");
-                }
-                else{
-                    console.log("unchecked");
-                }
+                checkbox.checked.forEach(checkbox => {
+                    if(checkbox.checked){
+                        console.log("checked")
+                    }
+                    else{
+                        console.log("unchecked");
+                    }
+                })
+                
             })
 
             function startGame() {
