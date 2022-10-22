@@ -215,7 +215,10 @@
                 Array.from(answerButtonsElement.children).forEach(button => {
                     setStatusClass(button, button.dataset.correct)
                 })
-                
+                if(button.dataset.correct == "true" && removeCheck.checked){
+                    questions.splice(currentQuestionIndex, 1)
+                    console.log("it hits here")
+                }
 
                 if (shuffledQuestions.length > currentQuestionIndex + 1) {
                     nextButton.classList.remove('hide')
@@ -228,10 +231,7 @@
                     infoContainer.classList.remove('hide')
                     infoContainer.appendChild(questions[currentQuestionIndex].info)
                 }
-                if(button.dataset.correct == "true" && removeCheck.checked){
-                    questions.splice(currentQuestionIndex, 1)
-                    console.log("it hits here")
-                }
+                
                 
             }
 
