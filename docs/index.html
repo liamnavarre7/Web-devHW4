@@ -127,6 +127,9 @@
             const nextButton = document.getElementById('next-btn')
             const backButton = document.getElementById('back-btn')
             const textboxContainer = document.getElementById('textbox-container')
+            const shuffleCheck = document.getElementById('shuffle-check')
+            const timeCheck = document.getElementById('time-check')
+            const removeCheck = document.getElementById('remove-check')
             const optionContainer = document.getElementById('option-container')
             const questionContainerElement = document.getElementById('question-container')
             const questionElement = document.getElementById('question')
@@ -147,8 +150,8 @@
                 setNextQuestion()
             })
             textboxContainer.addEventListener('click', () => {
-                var checkbox = document.getElementById("check");
-                checkbox.checked.forEach(checkbox => {
+                var checkboxes = [shuffleCheck, timeCheck, removeCheck]
+                checkboxes.checked.forEach(checkbox => {
                     if(checkbox.checked){
                         console.log("checked")
                     }
@@ -162,7 +165,12 @@
             function startGame() {
                 startButton.classList.add('hide')
                 textboxContainer.classList.add('hide')
-                shuffledQuestions = questions.sort(() => Math.random() - .5)
+                if(shuffleCheck.checked){
+                    shuffledQuestions = questions.sort(() => Math.random() - .5)
+                }
+                else{
+                    shuffledQuestions = questions
+                }
                 currentQuestionIndex = 0
                 questionContainerElement.classList.remove('hide')
 
@@ -207,6 +215,8 @@
                 Array.from(answerButtonsElement.children).forEach(button => {
                     setStatusClass(button, button.dataset.correct)
                 })
+                
+
                 if (shuffledQuestions.length > currentQuestionIndex + 1) {
                     nextButton.classList.remove('hide')
                     backButton.classList.remove('hide')
@@ -218,6 +228,11 @@
                     infoContainer.classList.remove('hide')
                     infoContainer.appendChild(questions[currentQuestionIndex].info)
                 }
+                if(button.dataset.correct == "true" && removeCheck.checked){
+                    questions.splice(currentQuestionIndex, 1)
+                    console.log("it hits here")
+                }
+                
             }
 
             function additionalText() {
@@ -358,9 +373,9 @@
         </div>
         <div class="controls">
             <div class="textbox-container" id="textbox-container">
-                Shuffle Cards: <input type="checkbox" id="check">
-                Timed Session: <input type="checkbox" id="check">
-                Remove Correct from Deck: <input type="checkbox" id="check">
+                Shuffle Cards: <input type="checkbox" id="shuffle-check">
+                Timed Session: <input type="checkbox" id="time-check">
+                Remove Correct from Deck: <input type="checkbox" id="remove-check">
             </div>
             
             <button id="start-btn" class="start-btn btn">Start</button>
