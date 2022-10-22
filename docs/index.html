@@ -144,6 +144,7 @@
             nextButton.addEventListener('click', () => {
                 currentQuestionIndex++
                 setNextQuestion()
+                //removeCorrect()
             })
             backButton.addEventListener('click', () => {
                 currentQuestionIndex--
@@ -171,6 +172,12 @@
                 else{
                     shuffledQuestions = questions
                 }
+                if(startButton.innerText == "Restart"){
+                    currentQuestionIndex = currentQuestionIndex
+                }
+                else{
+                    currentQuestionIndex = 0
+                }
                 currentQuestionIndex = 0
                 questionContainerElement.classList.remove('hide')
 
@@ -179,10 +186,10 @@
 
             function setNextQuestion() {
                 resetState()
-                showQuestion(shuffledQuestions[currentQuestionIndex])
+                showQuestion(shuffledQuestions[currentQuestionIndex], currentQuestionIndex)
             }
 
-            function showQuestion(question) {
+            function showQuestion(question,currentQuestionIndex){
                 questionElement.innerText = question.question
                 question.answers.forEach(answer => {
                     const button = document.createElement('button')
@@ -190,20 +197,20 @@
                     button.classList.add('btn')
                     if (answer.correct) {
                         button.dataset.correct = answer.correct
+                        button.addEventListener('click', removeCorrect(currentQuestionIndex))
                     }
                     button.addEventListener('click', selectAnswer)
                     answerButtonsElement.appendChild(button)
-                    button.addEventListener('click', additionalText) //This is where I want to add the text page 
-                    //button.addEventListener('click', removeCorrect)
+                    button.addEventListener('click', additionalText(question)) //This is where I want to add the text page 
                 })
             }
 
-            function removeCorrect(){
-                if(answerButtonsElement.children.button.dataset = true){
+            function removeCorrect(index){
+                //if(shuffledQuestions[currentQuestionIndex].answers.correct){
                     if(removeCheck.checked){
-                        questions = questions.splice(currentQuestionIndex, 1)
+                        correctQuestions.push(questions.splice(index, 1))
                     }
-                }
+                //}
             }
 
             function resetState() {
@@ -229,7 +236,7 @@
                     nextButton.classList.remove('hide')
                     backButton.classList.remove('hide')
                     infoContainer.classList.remove('hide')
-                    infoContainer.appendChild(questions[currentQuestionIndex].info)
+                    infoContainer.appendChild(shuffledQuestions[currentQuestionIndex].info)
                 } else {
                     startButton.innerText = 'Restart'
                     startButton.classList.remove('hide')
@@ -241,9 +248,9 @@
                 
             }
 
-            function additionalText() {
+            function additionalText(question) {
                 var text = document.createElement('container')
-                infoContainer.innerText = questions[currentQuestionIndex].additionalInfo
+                infoContainer.innerText = question.additionalInfo
             }
 
             function setStatusClass(element, correct) {
@@ -260,6 +267,8 @@
                 element.classList.remove('correct')
                 element.classList.remove('wrong')
             }
+
+            const correctQuestions = []
 
             const questions = [
                 {
@@ -333,8 +342,8 @@
                     answers: [
                         { text: '1', correct: false },
                         { text: '4', correct: true },
-                        { text: '13', correct: true },
-                        { text: '9', correct: true },
+                        { text: '13', correct: false },
+                        { text: '9', correct: false },
                     ],
                     additionalInfo: 'The packers have won 4 superbowls but 13 world championships. The Packers won 9 NFL championships before the super bowl era'
                 },
