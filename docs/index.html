@@ -194,7 +194,16 @@
                     button.addEventListener('click', selectAnswer)
                     answerButtonsElement.appendChild(button)
                     button.addEventListener('click', additionalText) //This is where I want to add the text page 
+                    //button.addEventListener('click', removeCorrect)
                 })
+            }
+
+            function removeCorrect(){
+                if(answerButtonsElement.children.button.dataset = true){
+                    if(removeCheck.checked){
+                        questions = questions.splice(currentQuestionIndex, 1)
+                    }
+                }
             }
 
             function resetState() {
@@ -226,6 +235,7 @@
                     startButton.classList.remove('hide')
                     infoContainer.classList.remove('hide')
                     infoContainer.appendChild(questions[currentQuestionIndex].info)
+                    
                 }
                 
                 
@@ -240,9 +250,7 @@
                 clearStatusClass(element)
                 if (correct) {
                     element.classList.add('correct')
-                    if(removeCheck.checked){
-                        questions.splice(currentQuestionIndex, 1)
-                    }
+                    
                 } else {
                     element.classList.add('wrong')
                 }
