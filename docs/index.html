@@ -92,10 +92,18 @@
         }
 
         .start-btn,
+        .back-btn,
         .next-btn {
             font-size: 1.5rem;
             font-weight: bold;
             padding: 10px 20px;
+        }
+
+        .check{
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-left: 20px;
         }
 
         .controls {
@@ -117,21 +125,40 @@
             const infoContainer = document.getElementById("additional-container");
             const startButton = document.getElementById('start-btn')
             const nextButton = document.getElementById('next-btn')
+            const backButton = document.getElementById('back-btn')
+            const textboxContainer = document.getElementById('textbox-container')
+            const optionContainer = document.getElementById('option-container')
             const questionContainerElement = document.getElementById('question-container')
             const questionElement = document.getElementById('question')
             const answerButtonsElement = document.getElementById('answer-buttons')
+            infoContainer.classList.add('hide')
 
             let shuffledQuestions, currentQuestionIndex
             //using the domLoaded function because the buttons need to be rendered before we can
             //add an event listener
             startButton.addEventListener('click', startGame)
+            
             nextButton.addEventListener('click', () => {
                 currentQuestionIndex++
                 setNextQuestion()
             })
+            backButton.addEventListener('click', () => {
+                currentQuestionIndex--
+                setNextQuestion()
+            })
+            textboxContainer.addEventListener('click', () => {
+                var checkbox = document.getElementById("check");
+                if(checkbox.checked == true){
+                    console.log("checked");
+                }
+                else{
+                    console.log("unchecked");
+                }
+            })
 
             function startGame() {
                 startButton.classList.add('hide')
+                textboxContainer.classList.add('hide')
                 shuffledQuestions = questions.sort(() => Math.random() - .5)
                 currentQuestionIndex = 0
                 questionContainerElement.classList.remove('hide')
@@ -162,8 +189,9 @@
             function resetState() {
                 clearStatusClass(document.body)
                 nextButton.classList.add('hide')
+                backButton.classList.add('hide')
                 infoContainer.classList.add('hide')
-                infoContainer.removeChild(infoContainer.firstChild);
+                infoContainer.removeChild(infoContainer.firstChild)
                 while (answerButtonsElement.firstChild) {
                     answerButtonsElement.removeChild(answerButtonsElement.firstChild)
                 }
@@ -178,13 +206,14 @@
                 })
                 if (shuffledQuestions.length > currentQuestionIndex + 1) {
                     nextButton.classList.remove('hide')
+                    backButton.classList.remove('hide')
                     infoContainer.classList.remove('hide')
-                    infoContainer.appendChild(questions[currentQuestionIndex].info);
-
+                    infoContainer.appendChild(questions[currentQuestionIndex].info)
                 } else {
                     startButton.innerText = 'Restart'
                     startButton.classList.remove('hide')
-                    infoContainer.appendChild(questions[currentQuestionIndex].info);
+                    infoContainer.classList.remove('hide')
+                    infoContainer.appendChild(questions[currentQuestionIndex].info)
                 }
             }
 
@@ -325,8 +354,16 @@
             </div>
         </div>
         <div class="controls">
+            <div class="textbox-container" id="textbox-container">
+                Shuffle Cards: <input type="checkbox" id="check">
+                Timed Session: <input type="checkbox" id="check">
+                Remove Correct from Deck: <input type="checkbox" id="check">
+            </div>
+            
             <button id="start-btn" class="start-btn btn">Start</button>
+            <button id="back-btn" class="back-btn btn hide">Back</button>
             <button id="next-btn" class="next-btn btn hide">Next</button>
+            
         </div>
     </div>
 </body>
