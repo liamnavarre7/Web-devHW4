@@ -215,7 +215,7 @@
                 Array.from(answerButtonsElement.children).forEach(button => {
                     setStatusClass(button, button.dataset.correct)
                 })
-                if(button.dataset.correct == "true" && removeCheck.checked){
+                if(answerButtonsElements.button.dataset.correct == "true" && removeCheck.checked){
                     questions.splice(currentQuestionIndex, 1)
                     console.log("it hits here")
                 }
