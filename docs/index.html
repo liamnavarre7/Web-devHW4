@@ -61,17 +61,12 @@
             padding: 10px;
             box-shadow: 0 0 10px 2px;
         }
-        .time-container{
-            width: 80px;
-            max-width: 80%;
-            height: 10vh;
-            background-color: white;
-            border-radius: 5px;
+        
+        #timer-container{
+            background-color: rgb(255, 255, 255);
+            height: 6vh;
+            width: 60px;
             text-align: center;
-            position: fixed;
-            top: 180px;
-            padding: 10px;
-            box-shadow: 0 0 10px 2px;
         }
         .btn-grid {
             display: grid;
@@ -184,13 +179,18 @@
                 else{
                     shuffledQuestions = questions
                 }
+
                 if(startButton.innerText == "Restart"){
                     currentQuestionIndex = currentQuestionIndex
                 }
                 else{
                     currentQuestionIndex = 0
                 }
-                currentQuestionIndex = 0
+
+                if(timeCheck.checked){
+                    timerContainer.classList.remove('hide')
+                    startTimer()
+                }
                 questionContainerElement.classList.remove('hide')
 
                 setNextQuestion()
@@ -221,6 +221,32 @@
                     if(removeCheck.checked){
                         correctQuestions.push(questions.splice(index, 1))
                     }
+            }
+
+            function startTimer(){
+                var seconds = 0;
+                var minutes = 0;
+                var red = 'rgb(255, 0, 0)';
+                var white = 'rgb(255, 255, 255)';
+                var downloadTimer = setInterval(function(){
+                if(seconds == 10){
+                    timerContainer.style.backgroundColor = red;
+                }
+                if(seconds == 11){
+                    timerContainer.style.backgroundColor = white;
+                }
+                //timerContainer.style.backgroundColor = white;
+                if(seconds == 60){
+                    timerContainer.style.backgroundColor = red;
+                    minutes++;
+                    seconds = 0;
+                }
+                if(seconds == 1){
+                    timerContainer.style.backgroundColor = white;
+                }
+                timerContainer.innerText = minutes + "m " + seconds + "s";
+                seconds += 1;
+                }, 1000);
             }
 
             function resetState() {
@@ -284,7 +310,7 @@
                 {
                     question: 'What Year did the Packers win the super bowl',
                     answers: [
-                        { text: '2009', correct: false },
+                        { text: '1997', correct: true },
                         { text: '2010', correct: true },
                         { text: '2005', correct: false },
                         { text: '2020', correct: false },
@@ -302,22 +328,24 @@
                     additionalInfo: 'Brett Favre had 29 interceptions in the 2005 season'
                 },
                 {
-                    question: 'Are the Seahawks a division rival of the Packers',
+                    question: 'What teams are rivals of the packers?',
                     answers: [
-                        { text: 'True', correct: false },
-                        { text: 'False', correct: true },
+                        { text: 'Vikings', correct: true },
+                        { text: 'Bears', correct: true },
+                        { text: 'lions', correct: true },
+                        { text: 'Seahawks', correct: false },
                     ],
-                    additionalInfo: 'False, the Seahawks are in the NFC West'
+                    additionalInfo: 'The Vikings, Bears, and Lions are all part of the NFC West'
                 },
                 {
-                    question: 'Who is the Packers all time leading rusher?',
+                    question: 'Who are the Packers 2022 Running backs?',
                     answers: [
                         { text: 'Eddie Lacy', correct: false },
-                        { text: 'Aaron Jones', correct: false },
-                        { text: 'Ahman Green', correct: true },
-                        { text: 'Ty Montgomery', correct: false },
+                        { text: 'Aaron Jones', correct: true },
+                        { text: 'Ahman Green', correct: false },
+                        { text: 'A.J. Dillon', correct: true },
                     ],
-                    additionalInfo: 'Ahman Green had 8,322 yards in his career'
+                    additionalInfo: 'Aaron Jones and A.J. Dillon are the Packers 2022 Running backs'
                 },
                 {
                     question: 'Who is the Packers all time leading receiver?',
@@ -352,7 +380,7 @@
                     answers: [
                         { text: '1', correct: false },
                         { text: '4', correct: true },
-                        { text: '13', correct: false },
+                        { text: '13', correct: true },
                         { text: '9', correct: false },
                     ],
                     additionalInfo: 'The packers have won 4 superbowls but 13 world championships. The Packers won 9 NFL championships before the super bowl era'
@@ -366,15 +394,15 @@
                     additionalInfo: "Aaron Rodgers spelled R-E-L-A-X in an interview in response to a question about the Packer's play"
                 },
                 {
-                    question: 'Who owns the packers?',
+                    question: 'Who is a Packer?',
                     answers: [
-                        { text: 'Mr.Packer ', correct: false },
-                        { text: 'Mark Few', correct: false },
-                        { text: 'Elon Musk', correct: false },
-                        { text: 'The Fans', correct: true },
+                        { text: 'Aaron Rodgers ', correct: true },
+                        { text: 'Mitchell Trubisky', correct: false },
+                        { text: 'Bryan Bulaga', correct: false },
+                        { text: 'Jaire Alexander', correct: true },
 
                     ],
-                    additionalInfo: 'The Green Bay Packers are the only community-owned team in the NFL'
+                    additionalInfo: 'Aarron Rodgers is the Quaterback for the Packers and Jaire Alexander is a Cornerback for the Packers'
                 },
                 
             ]
@@ -395,9 +423,10 @@
                 <button class="btn">Answer 2</button>
                 <button class="btn">Answer 3</button>
                 <button class="btn">Answer 4</button>
+                
             </div>
             <div id="timer-container" class="timer-container hide">
-                hello
+
             </div>
         </div>
         <div class="controls">
