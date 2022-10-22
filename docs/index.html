@@ -61,6 +61,18 @@
             padding: 10px;
             box-shadow: 0 0 10px 2px;
         }
+        .time-container{
+            width: 80px;
+            max-width: 80%;
+            height: 10vh;
+            background-color: white;
+            border-radius: 5px;
+            text-align: center;
+            position: fixed;
+            top: 180px;
+            padding: 10px;
+            box-shadow: 0 0 10px 2px;
+        }
         .btn-grid {
             display: grid;
             grid-template-columns: repeat(2, auto);
@@ -127,6 +139,7 @@
             const nextButton = document.getElementById('next-btn')
             const backButton = document.getElementById('back-btn')
             const textboxContainer = document.getElementById('textbox-container')
+            const timerContainer = document.getElementById('timer-container')
             const shuffleCheck = document.getElementById('shuffle-check')
             const timeCheck = document.getElementById('time-check')
             const removeCheck = document.getElementById('remove-check')
@@ -144,7 +157,6 @@
             nextButton.addEventListener('click', () => {
                 currentQuestionIndex++
                 setNextQuestion()
-                //removeCorrect()
             })
             backButton.addEventListener('click', () => {
                 currentQuestionIndex--
@@ -206,11 +218,9 @@
             }
 
             function removeCorrect(index){
-                //if(shuffledQuestions[currentQuestionIndex].answers.correct){
                     if(removeCheck.checked){
                         correctQuestions.push(questions.splice(index, 1))
                     }
-                //}
             }
 
             function resetState() {
@@ -386,9 +396,12 @@
                 <button class="btn">Answer 3</button>
                 <button class="btn">Answer 4</button>
             </div>
+            <div id="timer-container" class="timer-container hide">
+                hello
+            </div>
         </div>
         <div class="controls">
-            <div class="textbox-container" id="textbox-container">
+            <div id="textbox-container" class="textbox-container">
                 Shuffle Cards: <input type="checkbox" id="shuffle-check">
                 Timed Session: <input type="checkbox" id="time-check">
                 Remove Correct from Deck: <input type="checkbox" id="remove-check">
