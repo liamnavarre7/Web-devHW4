@@ -185,9 +185,12 @@
                 else{
                     shuffledQuestions = questions
                 }
-
-                if(startButton.innerText == "Restart"){
+                if(removeCheck.checked){
+                    optionContainer.classList.add('hide')
+              
+                    if(startButton.innerText == "Restart"){
                     currentQuestionIndex = currentQuestionIndex
+                    }
                 }
                 else{
                     currentQuestionIndex = 0
